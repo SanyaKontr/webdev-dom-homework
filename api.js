@@ -18,7 +18,7 @@ const listElement = document.getElementById("list");
 
 
 export function getElements() {
-  return fetch("https://wedev-api.sky.pro/api/v2/Alexandr-trankov10/comments", {
+  return fetch("https://wedev-api.sky.pro/api/v2/Alexandr-trankov12/comments", {
     method: "GET"
   })
     .then((response) => response.json())
@@ -70,15 +70,24 @@ export function correctDate(date) {
 
 
 export function postElements(text, name) {
-  return fetch('https://wedev-api.sky.pro/api/v2/Alexandr-trankov10/comments', {
+  return fetch('https://wedev-api.sky.pro/api/v2/Alexandr-trankov12/comments', {
 
     method: "POST",
     headers: {
       Authorization: token,
     },
     body: JSON.stringify({
-      text: textElement.value,
+      text: textElement.value
+      .replaceAll("<", "&lt")
+        .replaceAll(">", "&gt")
+        .replaceAll("&", "&amp;")
+        .replaceAll('"', "&quot;"),
       name: nameElement.value
+      .replaceAll("<", "&lt")
+      .replaceAll(">", "&gt")
+      .replaceAll("&", "&amp;")
+      .replaceAll('"', "&quot;"),
+      forceError: true
     })
 
 
@@ -88,7 +97,7 @@ export function postElements(text, name) {
       if (response.status === 500) {
         throw new Error("Сервер не отвечает, попробуйте позже");
       } else if (response.status === 400) {
-        throw new Error("Что-то не то, попробуйте ввести данные заново");
+        throw new Error("Минимальная длина комментария 3 символа");
       } else {
         return response.json();
       };
@@ -102,12 +111,13 @@ export function postElements(text, name) {
       getFetch();
       deleteLoadingIndicator();
     })
-    .catch((error) => {
+    .catch((error => {
       showAddForm();
       deleteLoadingIndicatorComments();
       buttonElement.disabled = false;
       alert(error.message);
-    });
+  
+    }));
 
 
 };
