@@ -1,6 +1,7 @@
 import { getFetch } from "./main.js";
 import { addComment } from "./render.js";
 import { renderComments } from "./render.js";
+import { format } from "date-fns";
 
 let token = null
 export const getToken = () => {
@@ -18,7 +19,7 @@ const listElement = document.getElementById("list");
 
 
 export function getElements() {
-  return fetch("https://wedev-api.sky.pro/api/v2/Alexandr-trankov12/comments", {
+  return fetch("https://wedev-api.sky.pro/api/v2/Alexandr-trankov13/comments", {
     method: "GET"
   })
     .then((response) => response.json())
@@ -70,7 +71,7 @@ export function correctDate(date) {
 
 
 export function postElements(text, name) {
-  return fetch('https://wedev-api.sky.pro/api/v2/Alexandr-trankov12/comments', {
+  return fetch('https://wedev-api.sky.pro/api/v2/Alexandr-trankov13/comments', {
 
     method: "POST",
     headers: {
