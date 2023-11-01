@@ -18,7 +18,7 @@ const listElement = document.getElementById("list");
 
 
 export function getElements() {
-  return fetch("https://wedev-api.sky.pro/api/v2/Alexandr-trankov11/comments", {
+  return fetch("https://wedev-api.sky.pro/api/v2/Alexandr-trankov12/comments", {
     method: "GET"
   })
     .then((response) => response.json())
@@ -70,7 +70,7 @@ export function correctDate(date) {
 
 
 export function postElements(text, name) {
-  return fetch('https://wedev-api.sky.pro/api/v2/Alexandr-trankov11/comments', {
+  return fetch('https://wedev-api.sky.pro/api/v2/Alexandr-trankov12/comments', {
 
     method: "POST",
     headers: {
@@ -87,6 +87,7 @@ export function postElements(text, name) {
       .replaceAll(">", "&gt")
       .replaceAll("&", "&amp;")
       .replaceAll('"', "&quot;"),
+      forceError: true
     })
 
 
@@ -114,7 +115,7 @@ export function postElements(text, name) {
       showAddForm();
       deleteLoadingIndicatorComments();
       buttonElement.disabled = false;
-      alert(`Нет соединения`);
+      alert(error.message);
   
     }));
 
